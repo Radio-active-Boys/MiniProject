@@ -55,7 +55,7 @@ Ensure you have Python installed on your system.
    ```bash
    python wifi_scanner.py  # for WiFi Scanner
    # OR
-   python appNew.py  # for Bluetooth Scanner
+   python bluetooth_scanner.py  # for Bluetooth Scanner
    ```
 
 3. **Follow the on-screen instructions** for each scanner.
