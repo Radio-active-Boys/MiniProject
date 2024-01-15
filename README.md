@@ -37,7 +37,7 @@
 1. **Run the application**:
 
    ```bash
-   python app.py
+   python appNew.py
    ```
 
 2. **Click on "Start Scanning"** to initiate Bluetooth device discovery.
