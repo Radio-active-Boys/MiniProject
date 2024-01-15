@@ -19,7 +19,7 @@ Certainly! Here's a simple README file that you can use. Copy the content below 
 Install required Python packages:
 
 ```bash
-pip install -r requirements.txt
+pip install wifi
 ```
 
 ## Usage
