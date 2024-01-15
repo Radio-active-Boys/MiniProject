@@ -15,7 +15,16 @@ class BluetoothScannerApp:
         self.unique_devices = {}  # Dictionary to store unique devices and their discovery time
         self.scanning = False
 
+        # Create directories for CSV files
+        self.export_directory = "List_Active_Devices"
+        self.download_directory = "List_All_Devices"
+        self.create_directories()
+
         self.create_widgets()
+
+    def create_directories(self):
+        os.makedirs(self.export_directory, exist_ok=True)
+        os.makedirs(self.download_directory, exist_ok=True)
 
     def create_widgets(self):
         self.label = ttk.Label(self.root, text="Discovered devices:")
@@ -73,7 +82,6 @@ class BluetoothScannerApp:
             self.tree.insert("", "end", values=device_data)
 
     def is_active(self, discovery_time):
-        # Check if the device is still considered active based on a certain time window (e.g., within the last 10 seconds)
         current_time = datetime.now()
         discovery_datetime = datetime.strptime(discovery_time, "%Y-%m-%d %H:%M:%S")
         time_difference = current_time - discovery_datetime
@@ -84,11 +92,9 @@ class BluetoothScannerApp:
         self.start_button["state"] = tk.DISABLED
         self.stop_button["state"] = tk.NORMAL
 
-        # Run the discover_devices coroutine in the asyncio event loop
         loop = asyncio.get_event_loop()
         loop.create_task(self.discover_devices())
 
-        # Update the Tkinter event loop to process asyncio tasks
         self.root.after(100, self.check_asyncio_tasks)
 
     def stop_scanning(self):
@@ -97,14 +103,13 @@ class BluetoothScannerApp:
         self.stop_button["state"] = tk.DISABLED
 
     def check_asyncio_tasks(self):
-        # This function ensures that asyncio tasks are processed in the Tkinter event loop
         loop = asyncio.get_event_loop()
         loop.run_until_complete(asyncio.sleep(0.1))
         self.root.after(100, self.check_asyncio_tasks)
 
     def export_to_csv(self):
         current_time = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        filename = f'discovered_devices_{current_time}.csv'
+        filename = os.path.join(self.export_directory, f'discovered_devices_{current_time}.csv')
         with open(filename, 'w', newline='') as csvfile:
             fieldnames = ['Device Name', 'Device Address', 'RSSI', 'Details']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -114,7 +119,7 @@ class BluetoothScannerApp:
                 writer.writerow({'Device Name': device_data[0], 'Device Address': device_data[1], 'RSSI': device_data[2], 'Details': device_data[3]})
 
     def download_unique_device_list(self):
-        filename = 'unique_devices_list.csv'
+        filename = os.path.join(self.download_directory, 'unique_devices_list.csv')
         with open(filename, 'w', newline='') as csvfile:
             fieldnames = ['Device Name', 'Device Address', 'RSSI', 'Details', 'Discovery Time']
             writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
