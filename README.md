@@ -1,6 +1,3 @@
-Certainly! Here's an updated README with additional details:
-
-```markdown
 # Bluetooth Device Scanner
 
 🔍 **Bluetooth Device Scanner** is a Python application that scans and monitors Bluetooth devices in real-time. It provides a user-friendly interface to discover nearby Bluetooth devices, export active devices to a CSV file, and maintain a list of unique devices with their discovery time.
@@ -26,7 +23,7 @@ Certainly! Here's an updated README with additional details:
 1. **Clone the repository**:
 
    ```bash
-   git clone https://github.com/your-username/Bluetooth-Device-Scanner.git
+   git clone https://github.com/Radio-active-Boys/MiniProject.git
    ```
 
 2. **Install dependencies**:
