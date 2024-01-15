@@ -42,5 +42,5 @@
 
 2. **Click on "Start Scanning"** to initiate Bluetooth device discovery.
 3. **View real-time information** about discovered devices.
-4. **Click on "Export to CSV"** to save details of currently active devices. A new CSV file will be created with the export timestamp.
-5. **Click on "Download List"** to save a list of unique devices and their discovery time.
+4. **Click on "Export to CSV"** to save details of currently active devices. A new CSV file will be created with the export timestamp, and the file will be saved in the List_Active_Devices directory.
+5. **Click on "Download List"** to save a list of unique devices and their discovery time. The file will be saved in the List_All_Devices directory.
