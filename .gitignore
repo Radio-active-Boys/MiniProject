@@ -1,3 +1,4 @@
 # Ignore exported_csv and downloaded_csv directories
 List_Active_Devices/
 List_All_Devices/
+wifi_scanner_data/
