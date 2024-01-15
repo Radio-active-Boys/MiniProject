@@ -15,7 +15,7 @@ git clone https://github.com/Radio-active-Boys/MiniProject.git
 ```
 
 ```bash
-cd wifi-network-scanner
+cd MiniProject_WiFi
 pip install wifi
 ```
 
