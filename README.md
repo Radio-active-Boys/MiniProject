@@ -27,6 +27,7 @@ The project comprises two scanners:
 
 Ensure you have Python installed on your system.
 
+
 ## Installation 📥
 
 1. **Clone the repository**:
