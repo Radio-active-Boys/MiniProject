@@ -12,6 +12,7 @@ Clone the repository:
 
 ```bash
 git clone https://github.com/your-username/wifi-network-scanner.git
+```
 cd wifi-network-scanner
 Certainly! Here's a simple README file that you can use. Copy the content below and save it in a file named `README.md` in the same directory as your script.
 
