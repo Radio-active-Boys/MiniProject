@@ -17,9 +17,9 @@ class WiFiScannerApp:
         self.scanning = False
 
         # Define the directory names
-        self.base_directory = "wifi_scanner_data"
-        self.all_devices_directory = os.path.join(self.base_directory, "all_devices")
-        self.live_devices_directory = os.path.join(self.base_directory, "live_devices")
+        self.base_directory = "Wifi_Scanner_Data"
+        self.all_devices_directory = os.path.join(self.base_directory, "All_Devices")
+        self.live_devices_directory = os.path.join(self.base_directory, "Live_Devices")
 
         self.create_widgets()
 
