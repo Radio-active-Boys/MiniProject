@@ -39,7 +39,8 @@ Ensure you have Python installed on your system.
 
    ```bash
    cd MiniProject
-   pip install -r requirements.txt
+   pip install bleak
+   pip install wifi
    ```
 
 ## Usage 🖥️
