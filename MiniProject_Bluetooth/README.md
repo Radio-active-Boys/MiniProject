@@ -29,6 +29,7 @@
 2. **Install dependencies**:
 
    ```bash
+   cd MiniProject_Bluetooth
    pip install bleak
    ```
 
