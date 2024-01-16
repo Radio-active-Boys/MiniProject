@@ -32,7 +32,6 @@ Ensure you have Python installed on your system.
 
 1. **Clone the repository**:
 
-  clone the repository
 
 2. **Install dependencies**:
 
