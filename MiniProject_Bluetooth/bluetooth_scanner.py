@@ -14,7 +14,7 @@ class BluetoothScannerApp:
         self.devices_data = []
         self.unique_devices = {}  # Dictionary to store unique devices and their discovery time
         self.scanning = False
-
+        self.scannedDevices = []
         # Create directories for CSV files
         self.export_directory = "List_Active_Devices"
         self.download_directory = "List_All_Devices"
@@ -55,7 +55,7 @@ class BluetoothScannerApp:
         while self.scanning:
             devices = await BleakScanner.discover()
             devices.sort(key=lambda device: device.rssi, reverse=True)
-
+            self.scannedDevices = devices
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             for device in devices:
@@ -75,17 +75,17 @@ class BluetoothScannerApp:
             await asyncio.sleep(1)
 
     def update_treeview(self):
-        active_devices = [device for device in self.devices_data if self.is_active(device[4])]
+        active_devices = [device for device in self.devices_data if self.is_active(device[1])]
         self.tree.delete(*self.tree.get_children())
 
         for device_data in active_devices:
             self.tree.insert("", "end", values=device_data)
 
-    def is_active(self, discovery_time):
-        current_time = datetime.now()
-        discovery_datetime = datetime.strptime(discovery_time, "%Y-%m-%d %H:%M:%S")
-        time_difference = current_time - discovery_datetime
-        return time_difference.total_seconds() < 10
+    def is_active(self, id):
+        for device in self.scannedDevices:
+            if device.address == id:
+                return True
+        return False
 
     def start_scanning(self):
         self.scanning = True
