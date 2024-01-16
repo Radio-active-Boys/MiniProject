@@ -75,17 +75,12 @@ class BluetoothScannerApp:
             await asyncio.sleep(1)
 
     def update_treeview(self):
-        active_devices = [device for device in self.devices_data if self.is_active(device[4])]
+        active_devices = [device for device in self.devices_data]
         self.tree.delete(*self.tree.get_children())
 
         for device_data in active_devices:
             self.tree.insert("", "end", values=device_data)
 
-    def is_active(self, discovery_time):
-        current_time = datetime.now()
-        discovery_datetime = datetime.strptime(discovery_time, "%Y-%m-%d %H:%M:%S")
-        time_difference = current_time - discovery_datetime
-        return time_difference.total_seconds() < 10
 
     def start_scanning(self):
         self.scanning = True
