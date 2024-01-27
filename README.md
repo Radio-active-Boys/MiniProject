@@ -64,3 +64,12 @@ Ensure you have Python installed on your system.
 ## Happy Scanning! 🌐🔍
 
 Feel the excitement of exploring the devices around you with the Smart Device Scanner. Whether it's WiFi or Bluetooth, this project has got you covered. Happy scanning! 🚀📡🔍
+
+
+{
+  "Unix_TimeStamp": {
+    "$elemMatch": {
+      "$eq": 1706374815
+    }
+  }
+}
