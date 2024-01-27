@@ -5,11 +5,19 @@ from datetime import datetime
 from bleak import BleakScanner
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
+from dotenv import load_dotenv
+
+
+# Load environment variables from .env file
+load_dotenv()
 
 app = Flask(__name__)
 
 # MongoDB setup
-client = MongoClient("mongodb+srv://iitjammu7:W95nUBv78dUKI6si@cluster1.0pamvyh.mongodb.net/?retryWrites=true&w=majority")
+
+# Access the environment variable
+mongodb_uri = os.getenv("MONGODB_URI")
+client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
 collection = db["test1"]
 
