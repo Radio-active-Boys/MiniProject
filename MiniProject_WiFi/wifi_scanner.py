@@ -54,7 +54,6 @@ class WiFiScannerApp:
             # Run the command to list connected and available devices
             result = os.popen("arp -a").read()
             devices = [line.strip() for line in result.split('\n') if line.strip()]
-
             # Parse the device information using regular expression
             pattern = re.compile(r'(?P<IP>\d+\.\d+\.\d+\.\d+)\s+(?P<MAC>[0-9a-fA-F-]+)\s+(?P<Type>dynamic|static)')
             matches = [pattern.match(device) for device in devices]
@@ -66,7 +65,6 @@ class WiFiScannerApp:
                 mac_address = device_data[1]
                 self.all_devices_data[mac_address] = device_data  # Use MAC address as the key
                 self.live_devices_data.add(mac_address)
-
             self.update_treeview()
             await asyncio.sleep(1)
 
