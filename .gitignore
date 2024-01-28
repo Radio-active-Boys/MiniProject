@@ -6,3 +6,4 @@ List_All_Devices/
 Wifi_Scanner_Data/
 All_Devices/
 Live_Devices/
+.env/
