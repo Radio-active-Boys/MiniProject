@@ -63,9 +63,6 @@ def update_exit_times():
         time.sleep(10)
 
 # Async function to discover Bluetooth devices
-# ...
-
-# Async function to discover Bluetooth devices
 async def discover_devices():
     global previous_scan_devices
     while not keyboard.is_pressed('q'):
@@ -102,24 +99,14 @@ async def discover_devices():
                                 {"MAC_add": mac_address},
                                 {"$set": {"Entry_time": [current_time]}}
                             )
-                        elif entry_times and not exit_times:
-                            # Device disconnected before, but no exit time recorded yet
-                            # Set entry time, update in-memory dictionary, and insert into the database
+                        elif exit_times and devices_in_range[mac_address]['exit_time'] != exit_times[-1]:
+                            # Device disconnected and reappeared
+                            # Update entry time and insert into the database
                             devices_in_range[mac_address]['entry_time'] = current_time
                             collection.update_one(
                                 {"MAC_add": mac_address},
-                                {"$set": {"Entry_time": [current_time]}}
+                                {"$push": {"Entry_time": current_time}}
                             )
-                        elif entry_times and exit_times:
-                            # Device disconnected and reappeared
-                            # Check if the device's exit time matches the latest exit time in the database
-                            if devices_in_range[mac_address]['exit_time'] != 0 and devices_in_range[mac_address]['exit_time'] != exit_times[-1]:
-                                # If not, it's a new entry after a previous exit, set entry time and insert into the database
-                                devices_in_range[mac_address]['entry_time'] = current_time
-                                collection.update_one(
-                                    {"MAC_add": mac_address},
-                                    {"$set": {"Entry_time": entry_times + [current_time], "Exit_time": exit_times + [current_time]}}
-                                )
                         # If only exit_times is present, it's a new device entry
                     else:
                         # 3. If the device does not exist, create a new document in the database
@@ -150,7 +137,7 @@ async def discover_devices():
                         device_data['active'] = False  # 4. Set the device as not active
                     else:
                         # 4. If the device is active and reappears in the current scan, update its entry time without deleting the previous entry time
-                        if devices_in_range[mac_address]['entry_time'] == 0:
+                        if devices_in_range[mac_address]['exit_time'] == 0:
                             collection.update_one(
                                 {"MAC_add": mac_address},
                                 {"$push": {"Entry_time": current_time}}
@@ -163,6 +150,9 @@ async def discover_devices():
         # You can print the data for testing purposes
         print("Scanned Devices -", current_scan_devices)
         print("Previous Devices -", previous_scan_devices)
+
+# ...
+
 
 # Flask route to get devices from the database
 @app.route('/get_devices', methods=['GET'])
