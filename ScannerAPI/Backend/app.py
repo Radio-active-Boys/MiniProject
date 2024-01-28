@@ -19,7 +19,7 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["test1"]
+collection = db["test2"]
 
 async def discover_devices():
     while not keyboard.is_pressed('q'):
