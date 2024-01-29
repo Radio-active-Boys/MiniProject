@@ -18,7 +18,7 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["test3"]
+collection = db["OptData"]
 
 # Dictionary to store devices currently in range along with their entry times and states
 devices_in_range = {}
@@ -58,9 +58,7 @@ def update_exit_times():
                     del devices_in_range[mac_address]
                     continue
 
-        # Sleep for a certain interval before checking again
-        # Adjust the sleep duration based on your requirements
-        time.sleep(10)
+        
 
 # Async function to discover Bluetooth devices
 async def discover_devices():
