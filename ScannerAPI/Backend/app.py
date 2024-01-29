@@ -19,12 +19,11 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["RawData"]
+collection = db["RawData1"]
 
 async def discover_devices():
     while not keyboard.is_pressed('q'):
         devices = await BleakScanner.discover()
-        
         for device in devices:
             mac_address = device.address
             timestamp = int(datetime.now().timestamp())
