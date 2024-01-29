@@ -57,7 +57,7 @@ def get_devices():
 if __name__ == "__main__":
     # Start the Flask app in a separate thread
     import threading
-    threading.Thread(target=app.run, kwargs={'port': 5000}).start()
+    threading.Thread(target=app.run, kwargs={'port': 4000}).start()
 
     # Start the Bluetooth scanner in the main thread
     asyncio.run(discover_devices())

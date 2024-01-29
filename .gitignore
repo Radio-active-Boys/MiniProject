@@ -7,5 +7,5 @@ Wifi_Scanner_Data/
 All_Devices/
 Live_Devices/
 
-# Ignore .env file
-.env/
+
+*.env
