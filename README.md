@@ -73,3 +73,12 @@ Feel the excitement of exploring the devices around you with the Smart Device Sc
     }
   }
 }
+
+
+Note: If you want to automate the setup process on multiple Raspberry Pi devices, you can use the provided setup.sh script. Make it executable with the following command:
+
+   ```bash
+   chmod +x setup.sh
+   ```
+
+
