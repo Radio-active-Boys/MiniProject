@@ -7,7 +7,6 @@ from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from dotenv import load_dotenv
 
-
 # Load environment variables from .env file
 load_dotenv()
 
@@ -19,7 +18,7 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["RawData1"]
+collection = db["RawData2"]
 
 async def discover_devices():
     while not keyboard.is_pressed('q'):
