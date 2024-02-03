@@ -7,7 +7,6 @@ from flask import Flask, jsonify
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import time
-import keyboard
 
 # Load environment variables from .env file
 load_dotenv()
@@ -63,7 +62,7 @@ def update_exit_times():
 # Async function to discover Bluetooth devices
 async def discover_devices():
     global previous_scan_devices
-    while not keyboard.is_pressed('q'):
+    while (True):
         devices = await BleakScanner.discover()
         current_scan_devices = set()
         for device in devices:
