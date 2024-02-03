@@ -3,8 +3,8 @@ import asyncio
 import csv
 import tkinter as tk
 from tkinter import ttk
-from bleak import BleakScanner
 from datetime import datetime
+from bleak import BleakScanner
 
 class BluetoothScannerApp:
     def __init__(self, root):

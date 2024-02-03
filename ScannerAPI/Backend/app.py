@@ -1,6 +1,5 @@
 import os
 import asyncio
-import keyboard
 from datetime import datetime
 from bleak import BleakScanner
 from flask import Flask, request, jsonify
@@ -18,10 +17,10 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["RawData2"]
+collection = db["PiData_1"]
 
 async def discover_devices():
-    while not keyboard.is_pressed('q'):
+    while(True):
         devices = await BleakScanner.discover()
         for device in devices:
             mac_address = device.address
@@ -55,7 +54,7 @@ def get_devices():
 if __name__ == "__main__":
     # Start the Flask app in a separate thread
     import threading
-    threading.Thread(target=app.run, kwargs={'port': 4000}).start()
+    threading.Thread(target=app.run, kwargs={'port': 5000}).start()
 
     # Start the Bluetooth scanner in the main thread
     asyncio.run(discover_devices())
