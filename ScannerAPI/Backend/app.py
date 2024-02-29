@@ -5,7 +5,7 @@ from bleak import BleakScanner
 from flask import Flask, request, jsonify
 from pymongo import MongoClient
 from dotenv import load_dotenv
-
+import bluetooth
 # Load environment variables from .env file
 load_dotenv()
 
@@ -21,9 +21,12 @@ collection = db["PiData_1"]
 
 async def discover_devices():
     while(True):
-        devices = await BleakScanner.discover()
+        bleak_devices = await BleakScanner.discover()
+        pybluz_devices = bluetooth.discover_devices(lookup_names=True)
+        devices = bleak_devices + pybluz_devices
         for device in devices:
             mac_address = device.address
+             
             timestamp = int(datetime.now().timestamp())
 
             # Check if the device is already in the database
