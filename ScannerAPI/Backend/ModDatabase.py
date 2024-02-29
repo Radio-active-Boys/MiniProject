@@ -8,7 +8,7 @@ from dotenv import load_dotenv
 import bluetooth
 import threading
 import csv
-import time
+
 # Load environment variables from .env file
 load_dotenv()
 
@@ -19,7 +19,7 @@ mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
 collection = db["ModifyData"]
-node_name = "Rasp1"
+node_name = "rasp4"
 CSV_FILE_PATH = "device_data.csv"
 
 def scan_pybluz_devices():
@@ -84,18 +84,28 @@ def process_devices(devices):
         existing_device = collection.find_one({"MAC_add": mac_address})
 
         if existing_device:
-            existing_device[node_name].append(timestamp)
-            collection.update_one({"_id": existing_device["_id"]}, {"$set": existing_device})
+            # Check if the node_name field exists
+            if node_name not in existing_device:
+                # If not, create the field and initialize it with a list containing the timestamp
+                collection.update_one(
+                    {"MAC_add": mac_address},
+                    {"$set": {node_name: [timestamp]}}
+                )
+            else:
+                # If yes, append the timestamp to the existing list
+                collection.update_one(
+                    {"MAC_add": mac_address},
+                    {"$push": {node_name: timestamp}}
+                )
         else:
             new_device = {
                 "MAC_add": mac_address,
                 node_name: [timestamp]
             }
             collection.insert_one(new_device)
-
-        current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        print(f"Scanned Device - MAC: {mac_address}, Timestamp: {timestamp}, Real Time: {current_time}")
-
+        real_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        print(f"Scanned Device - MAC: {mac_address}, Timestamp: {timestamp}, Real Time : {real_time}")
+ 
 
 
 @app.route('/get_devices', methods=['GET'])
