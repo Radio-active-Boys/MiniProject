@@ -18,8 +18,8 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["ModifyData"]
-node_name = "rasp4"
+collection = db["ModifyData_march1"]
+node_name = "TL road"
 CSV_FILE_PATH = "device_data.csv"
 
 def scan_pybluz_devices():
@@ -106,8 +106,6 @@ def process_devices(devices):
         real_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"Scanned Device - MAC: {mac_address}, Timestamp: {timestamp}, Real Time : {real_time}")
  
-
-
 @app.route('/get_devices', methods=['GET'])
 def get_devices():
     devices = list(collection.find({}, {"_id": 0}))

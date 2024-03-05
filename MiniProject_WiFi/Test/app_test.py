@@ -18,6 +18,7 @@ def get_wifi_info():
         if connected_info != -1:
             connected_ssid = result[connected_info:].split(":")[1].strip()
             print(f"Connected WiFi network: {connected_ssid}")
+             
         else:
             print("Not connected to any WiFi network.")
 
@@ -29,7 +30,7 @@ def get_wifi_info():
         networks = result.split("SSID")
         for network in networks[1:]:
             ssid = network.split(":")[1].strip()
-            print(f"SSID: {ssid}")
+            
 
     except subprocess.CalledProcessError as e:
         print(f"Error: {e}")

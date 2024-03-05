@@ -59,20 +59,8 @@ class BluetoothScannerApp:
             current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
             for device in devices:
-                device_address = device.address
-                if device_address not in self.unique_devices:
-                    device_info = (
-                        device.name if device.name else device_address,
-                        device_address,
-                        device.rssi,
-                        device.details,
-                        current_time
-                    )
-                    self.unique_devices[device_address] = device_info
-
-            self.devices_data = list(self.unique_devices.values())
-            self.update_treeview()
-            await asyncio.sleep(1)
+                device_
+            
 
     def update_treeview(self):
         active_devices = [device for device in self.devices_data if self.is_active(device[1])]

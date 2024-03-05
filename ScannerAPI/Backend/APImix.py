@@ -18,7 +18,7 @@ app = Flask(__name__)
 mongodb_uri = os.getenv("MONGODB_URI")
 client = MongoClient(mongodb_uri)
 db = client["bluetooth"]
-collection = db["29_Data_Feb"]
+collection = db["1march"]
 
 CSV_FILE_PATH = "device_data.csv"
 

@@ -85,7 +85,7 @@ class WiFiScannerApp:
             writer.writeheader()
             for network_data in self.networks_data:
                 writer.writerow({'SSID': network_data[0], 'BSSID': network_data[1], 'Signal Strength': network_data[2], 'Details': network_data[4]})
-
+                
 if __name__ == "__main__":
     root = tk.Tk()
     app = WiFiScannerApp(root)
