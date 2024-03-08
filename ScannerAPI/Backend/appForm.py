@@ -8,7 +8,7 @@ import threading
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import csv
-
+from tkinter import filedialog
 # Load environment variables from .env file
 load_dotenv()
 
@@ -17,6 +17,8 @@ class BluetoothScannerApp:
     def __init__(self, master):
         self.master = master
         master.title("Bluetooth Device Scanner")
+        
+        self.collection = None
 
         self.mongodb_uri_label = tk.Label(master, text="MongoDB URI:")
         self.mongodb_uri_label.grid(row=0, column=0, padx=10, pady=5, sticky="e")
@@ -42,12 +44,6 @@ class BluetoothScannerApp:
         self.node_name_entry = tk.Entry(master)
         self.node_name_entry.grid(row=3, column=1, padx=10, pady=5)
 
-        self.csv_file_path_label = tk.Label(master, text="CSV File Path:")
-        self.csv_file_path_label.grid(row=4, column=0, padx=10, pady=5, sticky="e")
-
-        self.csv_file_path_entry = tk.Entry(master)
-        self.csv_file_path_entry.grid(row=4, column=1, padx=10, pady=5)
-
         self.download_csv_button = tk.Button(master, text="Download CSV", command=self.download_csv)
         self.download_csv_button.grid(row=5, column=0, columnspan=2, pady=10)
 
@@ -63,12 +59,12 @@ class BluetoothScannerApp:
         db_name = self.db_name_entry.get()
         collection_name = self.collection_name_entry.get()
         node_name = self.node_name_entry.get()
-        csv_file_path = self.csv_file_path_entry.get()
+         
 
         # MongoDB setup
-        client = MongoClient(mongodb_uri)
+        client = MongoClient(mongodb_uri, serverSelectionTimeoutMS=5)
         db = client[db_name]
-        collection = db[collection_name]
+        self.collection  = db[collection_name]
 
         async def discover_devices():
             while True:
@@ -88,7 +84,7 @@ class BluetoothScannerApp:
                         "Timestamp": int(datetime.now().timestamp())
                     })
 
-                self.process_devices(devices, collection, node_name)
+                self.process_devices(devices, self.collection, node_name)
                 self.update_tk_output(devices)
 
                 print(f"Scanned Devices - {len(devices)} devices")
@@ -145,7 +141,16 @@ class BluetoothScannerApp:
 
     def download_csv(self):
         devices = list(self.collection.find({}, {"_id": 0}))
-        with open(self.csv_file_path_entry.get(), 'w', newline='') as csvfile:
+        file_path = filedialog.asksaveasfilename(
+            defaultextension=".csv",
+            filetypes=[("CSV files", "*.csv"), ("All files", "*.*")],
+            title="Save CSV file"
+        )
+
+        if not file_path:  # User canceled the dialog
+            return
+
+        with open(file_path, 'w', newline='') as csvfile:
             writer = csv.DictWriter(csvfile, fieldnames=devices[0].keys())
             writer.writeheader()
             writer.writerows(devices)
