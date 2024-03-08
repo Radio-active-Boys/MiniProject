@@ -7,5 +7,6 @@ Wifi_Scanner_Data/
 All_Devices/
 Live_Devices/
 myenv/
+build/
 
 *.env
