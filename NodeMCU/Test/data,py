@@ -1,0 +1,46 @@
+import serial
+import csv
+from serial.tools import list_ports
+
+def detect_com_port():
+    ports = list_ports.comports()
+    for port in ports:
+        if 'USB' in port.description:
+            return port.device
+    return None
+
+def main():
+    while True:
+        # Detect COM port
+        com_port = detect_com_port()
+        if com_port is None:
+            print("COM port not found. Retrying...")
+            continue
+
+        try:
+            # Open serial connection
+            ser = serial.Serial(com_port, baudrate=115200, timeout=1)
+
+            # Open CSV file for writing
+            with open('serial_data.csv', 'w', newline='', encoding='utf-8') as csvfile:
+                csv_writer = csv.writer(csvfile)
+                csv_writer.writerow(['Data'])  # Write header
+
+                # Read data from serial port and write to CSV
+                while True:
+                    try:
+                        data = ser.readline().decode('utf-8', errors='ignore').strip()  # Read a line from serial
+                        csv_writer.writerow([data])  # Write data to CSV
+                        print("Data written to CSV:", data)
+                    except KeyboardInterrupt:
+                        print("Stopping...")
+                        break
+
+            # Close serial connection
+            ser.close()
+        except serial.SerialException:
+            print("Failed to open serial port. Retrying...")
+            continue
+
+if __name__ == "__main__":
+    main()
