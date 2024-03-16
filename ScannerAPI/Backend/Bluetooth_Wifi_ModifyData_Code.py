@@ -129,7 +129,7 @@ def scan_nodemcu_devices():
         # Detect COM port
         com_port = detect_com_port()
         if com_port is None:
-            print("COM port not found. Retrying...")
+            print("COM port not found. Please Connect NodeMCU")
             return nodemcu_devices
 
         # Open serial connection
