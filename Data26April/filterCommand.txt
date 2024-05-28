@@ -1,0 +1,6 @@
+db.collection.find({
+  $and: [
+    { Harshad: { $exists: true } },
+    { Admin1: { $exists: true } }
+  ]
+})

@@ -80,5 +80,3 @@ Note: If you want to automate the setup process on multiple Raspberry Pi devices
    ```bash
    chmod +x setup.sh
    ```
-
-

@@ -87,7 +87,7 @@ class MongoDBStorage:
         while True:
             bleak_devices = await self.scan_bleak_devices()
             pybluz_devices = self.scan_pybluz_devices()
-            nodemcu_devices = self.scan_nodemcu_devices()
+            # nodemcu_devices = self.scan_nodemcu_devices()
             devices = []
             for device in bleak_devices:
                 devices.append({
@@ -100,7 +100,7 @@ class MongoDBStorage:
                     "MAC_add": addr,
                     "Timestamp": int(datetime.now().timestamp())
                 })
-            devices.extend(nodemcu_devices)
+            # devices.extend(nodemcu_devices)
             self.process_devices(devices)
             print(f"Scanned Devices - {len(devices)} devices")
 

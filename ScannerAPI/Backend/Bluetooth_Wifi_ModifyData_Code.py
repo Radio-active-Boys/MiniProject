@@ -19,11 +19,11 @@ load_dotenv()
 
 app = Flask(__name__)
 
-mongodb_uri = os.getenv("MONGODB_URI")
+mongodb_uri = os.getenv("MONGODB_URI5")
 client = MongoClient(mongodb_uri)
-db = client["bluetooth"]
-collection = db["ModifyData_march16"]
-node_name = "Room202_2"
+db = client["bluetooth2"]
+collection = db["ModifyData_april6"]
+node_name = "chais"
 csv_file_path = "device_data.csv"
 
 def detect_com_port():
@@ -74,8 +74,8 @@ async def discover_devices():
                 })
 
             # Discover NodeMCU devices
-            nodemcu_devices = scan_nodemcu_devices()
-            devices.extend(nodemcu_devices)
+            # nodemcu_devices = scan_nodemcu_devices()
+            # devices.extend(nodemcu_devices)
 
             # Process and store devices in MongoDB
             process_devices(devices)
@@ -172,3 +172,4 @@ if __name__ == "__main__":
     # Start device discovery
     loop = asyncio.get_event_loop()
     loop.run_until_complete(discover_devices())
+    
