@@ -10,8 +10,8 @@ def convert_unix_to_realtime(data):
     return data
 
 def main():
-    input_file = r'Report\Data6\BetweenTwoLocation.json'
-    output_file = r'Report\Data6\ProcessedDataBetweenTwoLocation.json'
+    input_file = r'Data06June\merged_data.json'
+    output_file = r'Data06June\ProcessedDataBetweenTwoLocation.json'
 
     with open(input_file, 'r') as f:
         data = json.load(f)
