@@ -36,3 +36,16 @@ echo "MONGODB_URI=mongodb+srv://your_username:your_password@cluster1.Opamvyh.mon
 # Run the application
 cd ScannerAPI/FrontendAppUI
 python FinalApp.py
+
+
+
+sudo apt-get install python3-tk -y
+sudo apt-get install python3-bleak -y
+sudo apt-get install python3-bluetooth -y
+sudo apt-get install python3-dnspython -y
+sudo apt-get install python3-Flask -y
+sudo apt-get install python3-pymongo -y
+sudo apt-get install python3-asyncio -y
+sudo apt-get install python3-bleach -y
+sudo apt-get install python3-pyserial -y
+sudo apt-get install python3-python-dotenv -y

@@ -2,8 +2,8 @@ import json
 import csv
 import uuid
 
-json_file_path = r'data\26June2024\ProcessedDataBetweenTwoLocation.json' 
-csv_file_path = r'data\26June2024\output.csv'
+json_file_path = r'data\data28Junee\FilterDataBetweenTwoLocation.json' 
+csv_file_path = r'data\data28Junee\Data_28June.csv'
 
 with open(json_file_path, 'r') as json_file:
     data = json.load(json_file)
